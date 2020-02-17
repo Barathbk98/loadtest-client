@@ -3,12 +3,14 @@ import axios from 'axios'
 import { TextField,Grid,Paper,Button} from '@material-ui/core';
 import {GiWeightLiftingUp} from 'react-icons/gi';
 import swal from 'sweetalert';
+import Loader from 'react-loader'
 
 export default class loadtest extends Component {
 
     constructor(){
         super();
         this.state = {
+            loaded: true,
             result:[],
             meth : [{
                 value: 'GET',
@@ -36,8 +38,8 @@ export default class loadtest extends Component {
     }
 
     handlechange = (e) =>{
-        if(e.target.name==="method")
-        e.target.value = e.target.value.toUpperCase()
+        // if(e.target.name==="method")
+        // e.target.value = e.target.value.toUpperCase()
 
         this.setState({details : {...this.state.details,[e.target.name]:e.target.value}})
     }
@@ -46,11 +48,11 @@ export default class loadtest extends Component {
         if(this.state.details.url===""||this.state.details.method===""||this.state.details.rps===0||this.state.details.concurrency===0||this.state.details.requests===0)
         swal("Enter all the required field",{ icon: "error"})
         else{
+            this.setState({loaded:false})
             axios.post("api/test",{
                 details : this.state.details
             }).then((response)=>{
-                this.setState({result:[response.data]})
-                console.log(this.state.result)
+                this.setState({result:[response.data],loaded:true})
             })
         }
     }
@@ -96,6 +98,7 @@ export default class loadtest extends Component {
                         </Grid> 
                     </Grid>
                 </form>
+                <Loader loaded={this.state.loaded}>
                 { this.state.result.map((data)=>{
                     return(
                         <div id="resultcontainer">
@@ -133,6 +136,7 @@ export default class loadtest extends Component {
                         </div>
                     )
                 })}
+                </Loader>
             </div>
         )
     }
