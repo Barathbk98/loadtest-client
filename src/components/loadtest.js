@@ -46,7 +46,7 @@ export default class loadtest extends Component {
         if(this.state.details.url===""||this.state.details.method===""||this.state.details.rps===0||this.state.details.concurrency===0||this.state.details.requests===0)
         swal("Enter all the required field",{ icon: "error"})
         else{
-            axios.post("http://localhost:5000/test",{
+            axios.post("api/test",{
                 details : this.state.details
             }).then((response)=>{
                 this.setState({result:[response.data]})
