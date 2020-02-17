@@ -1,0 +1,41 @@
+form{
+  margin-left: 200px;
+  margin-top: 50px;
+}
+
+option{
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* label{
+  margin-right: 100px;
+} */
+td{
+  width: 470px
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+#resultcontainer{
+  font-size: 20px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 15px;
+  width: 930px;
+  margin-left: 190px;
+}
+
+option:hover{
+  color: red;
+  background-color: #eee;
+}
+
+.icon{
+  color: blue;
+}
+
+#header{
+  color: red;
+  padding-left: 25rem ;
+}
