@@ -14,9 +14,9 @@ docker build:
   - docker build -t myimage .
 
 docker push:
-  image: barathbk/myimage
   stage: Push to Docker Hub
   only:
   - master
   script:
+  - docker login -u "$USER_NAME" -p "$PASSWORD"
   - docker push barathbk/myimage
