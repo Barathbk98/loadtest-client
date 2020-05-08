@@ -11,4 +11,10 @@ docker build:
   script:
   - docker info
   - docker build -t myimage .
-  - docker push myimage
+
+docker push:
+  stage: Push to Docker Hub
+  only:
+  - master
+  script:
+  - docker push barathbk/myimage
