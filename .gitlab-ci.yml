@@ -2,6 +2,8 @@ image: docker:stable
 
 stages:
   - Build image
+before_script:
+  - docker login -u "$USER_NAME" -p "$PASSWORD" $REGISTRY
 
 docker build:
   stage: Build image
