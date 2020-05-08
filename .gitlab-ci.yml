@@ -1,8 +1,10 @@
-image: docker:latest
-before_script:
-  - docker info
+image: docker:stable
 
-build_image:
+stages:
+  - Build image
+
+docker build:
+  stage: Build image
   script:
-    - docker build -t my-docker-image .
-    - docker run my-docker-image /script/to/run/tests
+  - docker info
+  - docker build -t myimage .
