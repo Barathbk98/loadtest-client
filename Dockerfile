@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:alphine as multistage
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
