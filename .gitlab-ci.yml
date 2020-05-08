@@ -3,6 +3,7 @@ services:
   - docker:dind
 stages:
   - Build image
+  - Push to Docker Hub
 before_script:
   - docker login -u "$USER_NAME" -p "$PASSWORD" $REGISTRY
 
