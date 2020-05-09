@@ -2,16 +2,16 @@ image: docker:stable
 services:
   - docker:dind
 stages:
-#   - Build image
+  - Build image
   - Deploy
 
-# docker build:
-#   stage: Build image
-#   script:
-#   - docker info
-#   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-#   - docker build -t $CI_REGISTRY/barathbk/loadtest-client .
-#   - docker push $CI_REGISTRY/barathbk/loadtest-client
+docker build:
+  stage: Build image
+  script:
+  - docker info
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  - docker build -t $CI_REGISTRY/barathbk/loadtest-client .
+  - docker push $CI_REGISTRY/barathbk/loadtest-client
 
 ssh deploy:
   stage: Deploy
