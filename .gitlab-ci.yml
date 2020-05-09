@@ -10,7 +10,6 @@ docker build:
   script:
   - docker info
   - docker build -t loadtest .
-  - docker image ls
   - docker login -u "$USER_NAME" -p "$PASSWORD"
   - docker tag loadtest barathbk/loadtest-client:first
   - docker push barathbk/loadtest-client
