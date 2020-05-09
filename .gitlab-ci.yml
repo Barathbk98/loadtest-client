@@ -3,12 +3,22 @@ services:
   - docker:dind
 stages:
   - Build image
+  - Deploy
 
 docker build:
   stage: Build image
   script:
   - docker info
-  - docker build -t loadtest .
-  - docker login -u "$USER_NAME" -p "$PASSWORD"
-  - docker tag loadtest barathbk/loadtest-client:first
-  - docker push barathbk/loadtest-client
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+  - docker build -t $CI_REGISTRY/barathbk/loadtest-client .
+  - docker push $CI_REGISTRY/barathbk/loadtest-client
+
+ssh deploy:
+  stage: Deploy
+  script:
+  - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+  - mkdir -p ~/.ssh
+  - eval $(ssh-agent -s)
+  - echo "$PRIVATE_KEY" | tr -d '\r' | ssh-add -
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  - ssh root@167.71.236.57 "docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY && docker pull barathbk/loadtest-client && exit"
