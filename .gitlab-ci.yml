@@ -16,6 +16,9 @@ docker build:
 ssh deploy:
   stage: Deploy
   script:
-  - ssh root@167.71.236.57
-  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-  - docker pull barathbk/loadtest-client
+  - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  - ssh root@167.71.236.57 "docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY && docker pull barathbk/loadtest-client && exit"
