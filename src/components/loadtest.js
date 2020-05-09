@@ -62,7 +62,7 @@ export default class loadtest extends Component {
             <div>
                 <form>
                     <Grid container spacing={3} xs={false} sm={8} md={10} component={Paper} elevation={6} square>
-                        <div id="header"><h1><GiWeightLiftingUp className="icon"/>LOAD TEST docker<GiWeightLiftingUp className="icon"/></h1></div>
+                        <div id="header"><h1><GiWeightLiftingUp className="icon"/>LOAD TEST<GiWeightLiftingUp className="icon"/></h1></div>
                         
                         <Grid item xs={12} >
                             <TextField fullWidth autoComplete="off" id="outlined-basic" label="Loadtest URl" variant="outlined" name="url" onChange={(e)=>this.handlechange(e)}/>
