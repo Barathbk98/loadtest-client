@@ -2,7 +2,7 @@ image: docker:stable
 services:
   - docker:dind
 stages:
-  - Build image
+#   - Build image
   - Deploy
 
 # docker build:
