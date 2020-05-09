@@ -1,0 +1,14 @@
+image: docker:stable
+services:
+  - docker:dind
+stages:
+  - Build image
+
+docker build:
+  stage: Build image
+  script:
+  - docker info
+  - docker build -t loadtest .
+  - docker login -u "$USER_NAME" -p "$PASSWORD"
+  - docker tag loadtest barathbk/loadtest-client:first
+  - docker push barathbk/loadtest-client
