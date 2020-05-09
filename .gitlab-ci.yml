@@ -12,6 +12,7 @@ docker build:
   script:
   - docker info
   - docker build -t loadtest-client .
+  - docker image ls
 
 docker push:
   stage: Push to Docker Hub
@@ -19,4 +20,4 @@ docker push:
   - master
   script:
   - docker login -u "$USER_NAME" -p "$PASSWORD"
-  - docker push barathbk/loadtest-client
+  - docker push barathBK/loadtest-client
