@@ -19,5 +19,6 @@ docker push:
   only:
   - master
   script:
+  - docker image ls
   - docker login -u "$USER_NAME" -p "$PASSWORD"
   - docker push loadtest-client/first
