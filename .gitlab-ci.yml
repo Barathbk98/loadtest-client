@@ -19,6 +19,6 @@ ssh deploy:
   - 'which ssh-agent || ( apt-get install -qq openssh-client )'
   - mkdir -p ~/.ssh
   - eval $(ssh-agent -s)
-  - "ssh-add < (echo '$PRIVATE_KEY')"
+  - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   - ssh root@167.71.236.57 "docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY && docker pull barathbk/loadtest-client && exit"
