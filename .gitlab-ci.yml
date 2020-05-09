@@ -5,20 +5,20 @@ stages:
   - Build image
   - Deploy
 
-docker build:
-  stage: Build image
-  script:
-  - docker info
-  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-  - docker build -t $CI_REGISTRY/barathbk/loadtest-client .
-  - docker push $CI_REGISTRY/barathbk/loadtest-client
+# docker build:
+#   stage: Build image
+#   script:
+#   - docker info
+#   - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+#   - docker build -t $CI_REGISTRY/barathbk/loadtest-client .
+#   - docker push $CI_REGISTRY/barathbk/loadtest-client
 
 ssh deploy:
   stage: Deploy
   script:
   - 'which ssh-agent || ( apt-get install -qq openssh-client )'
   - eval $(ssh-agent -s)
-  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - ssh-add <(echo "$PRIVATE_KEY")
   - mkdir -p ~/.ssh
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   - ssh root@167.71.236.57 "docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY && docker pull barathbk/loadtest-client && exit"
