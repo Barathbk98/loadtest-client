@@ -11,7 +11,7 @@ docker build:
   stage: Build image
   script:
   - docker info
-  - docker build -t first .
+  - docker build -t loadtest .
   - docker image ls
 
 docker push:
@@ -21,4 +21,5 @@ docker push:
   script:
   - docker image ls
   - docker login -u "$USER_NAME" -p "$PASSWORD"
-  - docker push loadtest-client/first
+  - docker tag loadtest barathbk/loadtest-client:first
+  - docker push barathbk/loadtest-client
