@@ -20,4 +20,4 @@ docker push:
   - master
   script:
   - docker login -u "$USER_NAME" -p "$PASSWORD"
-  - docker push barathBK/loadtest-client
+  - docker push loadtest-client
